@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Comanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pages/style.css">
+</head>
+<body>
+    <header>
+        <h1>Registrar Comanda</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Registrar Comanda</a></li>
+                <li><a href="pages/verificar_comanda.html">Verificar Comanda</a></li>
+                <li><a href="pages/gerenciar_produtos.html">Gerenciar Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="registrar">
+            <h2>Preencha os dados da comanda</h2>
+
+            <form id="comandaForm">
+                <!-- Campo para o número da comanda -->
+                <label for="idComanda">Número da Comanda:</label>
+                <input type="number" id="idComanda" name="idComanda" required>
+
+                <h3>Adicionar Produtos</h3>
+
+                <!-- Tabela para mostrar os produtos adicionados -->
+                <table id="produtosComanda">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itensComanda">
+                        <!-- Itens serão adicionados aqui -->
+                    </tbody>
+                </table>
+
+                <!-- Seleção de produto e quantidade -->
+                <label for="produto">Produto:</label>
+                <select id="produto" name="produto">
+                    <option value="Pão Francês">Pão Francês</option>
+                    <option value="Croissant">Croissant</option>
+                    <option value="Bolo de Chocolate">Bolo de Chocolate</option>
+                    <option value="Pão de Queijo">Pão de Queijo</option>
+                </select>
+
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" name="quantidade" min="1" required>
+
+                <button type="button" id="adicionarProduto">Adicionar Produto</button>
+
+                <br><br>
+
+                <!-- Botão para enviar a comanda com todos os produtos -->
+                <button type="submit" id="enviarComanda">Enviar Comanda</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Padaria Sistema de Comandas. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Variáveis para controlar a comanda e produtos
+        let comandaProdutos = [];
+
+        // Função para adicionar o produto na tabela de itens da comanda
+        document.getElementById('adicionarProduto').addEventListener('click', function() {
+            const produtoSelecionado = document.getElementById('produto').value;
+            const quantidade = document.getElementById('quantidade').value;
+            
+            if (quantidade < 1) {
+                alert("A quantidade precisa ser maior que zero.");
+                return;
+            }
+
+            // Adiciona o produto na lista de produtos da comanda
+            comandaProdutos.push({ produto: produtoSelecionado, quantidade: parseInt(quantidade) });
+
+            // Atualiza a tabela de produtos
+            atualizarTabela();
+        });
+
+        // Função para atualizar a tabela de produtos
+        function atualizarTabela() {
+            const tbody = document.getElementById('itensComanda');
+            tbody.innerHTML = '';
+
+            comandaProdutos.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.produto}</td>
+                    <td>${item.quantidade}</td>
+                    <td><button type="button" onclick="removerProduto(${index})">Remover</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Função para remover um produto da lista de produtos
+        function removerProduto(index) {
+            comandaProdutos.splice(index, 1);
+            atualizarTabela();
+        }
+
+        // Envio da comanda
+        document.getElementById('comandaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const idComanda = document.getElementById('idComanda').value;
+
+            if (!idComanda) {
+                alert("O número da comanda é obrigatório.");
+                return;
+            }
+
+            if (comandaProdutos.length === 0) {
+                alert("Por favor, adicione produtos à comanda.");
+                return;
+            }
+
+            // Aqui você pode enviar os dados para o backend ou salvar localmente
+            console.log("Comanda Enviada:", { idComanda, produtos: comandaProdutos });
+
+            alert("Comanda enviada com sucesso!");
+
+            // Limpar a comanda
+            comandaProdutos = [];
+            atualizarTabela();
+            document.getElementById('idComanda').value = '';
+        });
+    </script>
+</body>
+</html>

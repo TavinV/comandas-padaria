@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Comanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Verificar Comanda</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Registrar Comanda</a></li>
+                <li><a href="./verificar_comanda.html">Verificar Comanda</a></li>
+                <li><a href="./gerenciar_produtos.html">Gerenciar Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="verificar">
+            <h2>Consulta de Comanda</h2>
+
+            <form id="comandaForm">
+                <label for="numeroComanda">Número da Comanda:</label>
+                <input type="text" id="numeroComanda" name="numeroComanda" required>
+                <button type="submit" id="buscarComanda">Buscar Comanda</button>
+            </form>
+
+            <div id="resultadoComanda" style="display:none;">
+                <h3 style="padding-top: 30px">Produtos na Comanda</h3>
+                <hr>
+                <table id="tabelaComanda">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Preço</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="produtosComanda">
+                        <!-- Os produtos serão preenchidos via JavaScript -->
+                    </tbody>
+                </table>
+
+                <button type="button" id="limparComanda">Limpar Comanda</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Padaria Sistema de Comandas. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../backend/validarComanda.js"></script>
+    <!-- <script>
+        // Dados simulados das comandas (isto seria obtido de um banco de dados em um sistema real)
+        const comandas = {
+            '123': [
+                { produto: 'Pão Francês', quantidade: 3, preco: '0,50' },
+                { produto: 'Croissant', quantidade: 2, preco: '2,00' }
+            ],
+            '456': [
+                { produto: 'Bolo de Chocolate', quantidade: 1, preco: '5,00' },
+                { produto: 'Pão de Queijo', quantidade: 4, preco: '1,50' }
+            ]
+        };
+
+        // Função para buscar e exibir os produtos da comanda
+        document.getElementById('buscarComanda').addEventListener('click', function() {
+            const numeroComanda = document.getElementById('numeroComanda').value;
+            const produtosComanda = comandas[numeroComanda];
+
+            if (produtosComanda) {
+                // Exibe os produtos da comanda
+                const tbody = document.getElementById('produtosComanda');
+                tbody.innerHTML = ''; // Limpa a tabela antes de adicionar os itens
+
+                produtosComanda.forEach(item => {
+                    const tr = document.createElement('tr');
+                    const preco = parseFloat(item.preco)
+                    const quantidade = parseFloat(item.quantidade)
+                    const subtotal = preco * quantidade
+
+                    tr.innerHTML = `
+                        <td>${item.produto}</td>
+                        <td>${item.quantidade}</td>
+                        <td>${item.preco}</td>
+                        <td>${subtotal}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Exibe a área com os resultados e o botão de limpar comanda
+                document.getElementById('resultadoComanda').style.display = 'block';
+            } else {
+                alert('Comanda não encontrada.');
+            }
+        });
+
+        // Função para limpar a comanda
+        document.getElementById('limparComanda').addEventListener('click', function() {
+            const numeroComanda = document.getElementById('numeroComanda').value;
+            if (comandas[numeroComanda]) {
+                // Limpa a comanda
+                delete comandas[numeroComanda];
+
+                // Limpa a tabela e esconde a área de resultado
+                document.getElementById('produtosComanda').innerHTML = '';
+                document.getElementById('resultadoComanda').style.display = 'none';
+
+                alert('Comanda limpa com sucesso!');
+            } else {
+                alert('Comanda não encontrada.');
+            }
+        });
+    </script> -->
+</body>
+</html>
