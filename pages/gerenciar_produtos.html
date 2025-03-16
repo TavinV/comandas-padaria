@@ -1,132 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Produtos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Café com Leite - Produtos</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
-        <h1>Gerenciar Produtos</h1>
+        <center>
+            <h2>Padaria Café com leite</h2>
+        </center>
         <nav>
             <ul>
-                <li><a href="../index.html">Registrar Comanda</a></li>
-                <li><a href="./verificar_comanda.html">Verificar Comanda</a></li>
-                <li><a href="./gerenciar_produtos.html">Gerenciar Produtos</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="../index.html">Abrir Comanda</a></li>
+                <li><a href="comandas.html">Comandas</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
-        <section id="produtos">
-            <h2>Lista de Produtos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome do Produto</th>
-                        <th>Preço</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaProdutos">
-                    <tr>
-                        <td>001</td>
-                        <td>Pão Francês</td>
-                        <td id="preco_001">R$ 0,50</td>
-                        <td>
-                            <button onclick="editarProduto(1, 0.5)">Editar</button>
-                            <button onclick="removerProduto(1)">Excluir</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Croissant</td>
-                        <td id="preco_002">R$ 2,00</td>
-                        <td>
-                            <button onclick="editarProduto(2,2.00)">Editar</button>
-                            <button onclick="removerProduto(2)">Excluir</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <h1>Produtos</h1>
+        <div class="form-container">
+            <form id="form-produto">
+                <label for="cod">Código:</label>
+                <input type="number" id="cod" name="cod" required>
 
-            <hr>
-            <h3 style="padding-top: 30px">Adicionar Novo Produto</h3>
-            <form id="novoProdutoForm">
-                <label for="nomeProduto">Nome do Produto:</label>
-                <input type="text" id="nomeProduto" name="nomeProduto" required>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
 
-                <label for="precoProduto">Preço:</label>
-                <input type="number" id="precoProduto" name="precoProduto" required>
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" name="valor" step="0.01" required>
 
-                <button type="submit">Adicionar Produto</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Padaria Sistema de Comandas. Todos os direitos reservados.</p>
-    </footer>
-
-    <!-- Modal para editar o preço do produto -->
-    <div id="modalEditarProduto" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="fecharModal()">&times;</span>
-            <h2>Editar Produto</h2>
-            <form id="formEditarProduto">
-                <input type="hidden" id="produtoId" name="produtoId">
-
-                <label for="nome">Produto</label>
-                <input type="text">
-                <label for="novoPreco">Novo Preço:</label>
-                <input type="number" id="novoPreco" name="novoPreco" required>
-                
-                
-                <button type="submit">Salvar</button>
+                <button type="submit">Cadastrar</button>
             </form>
         </div>
-    </div>
-
-    <script>
-        // Função para abrir o modal de edição
-        function editarProduto(id, preco) {
-            document.getElementById('produtoId').value = id;
-            document.getElementById('novoPreco').value = preco
-            document.getElementById('modalEditarProduto').style.display = 'block';
-        }
-
-        // Função para fechar o modal
-        function fecharModal() {
-            document.getElementById('modalEditarProduto').style.display = 'none';
-        }
-
-        /*
-        // Função para salvar as alterações no preço
-        document.getElementById('formEditarProduto').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const produtoId = document.getElementById('produtoId').value;
-            const novoPreco = document.getElementById('novoPreco').value;
-            const precoFormatado = `R$ ${parseFloat(novoPreco).toFixed(2)}`;
-
-            // Atualiza o preço na tabela
-            document.getElementById(`preco_${String(produtoId).padStart(3, '0')}`).innerText = precoFormatado;
-
-            // Fecha o modal
-            fecharModal();
-            alert("Preço atualizado com sucesso!");
-        });*/
-
-        /*
-        // Função para remover um produto (exclusão simulada)
-        function removerProduto(id) {
-            const linhaProduto = document.querySelector(`#tabelaProdutos tr:nth-child(${id})`);
-            linhaProduto.remove();
-            alert(`Produto ID ${id} excluído com sucesso.`);
-        }*/
-    </script>
-
+        <table id="tabela-produtos">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Produtos serão inseridos aqui via JavaScript -->
+                <tr>
+                    <td>1</td>
+                    <td>Café Expresso</td>
+                    <td>R$ 5,00</td>
+                    <td>
+                        <button class="btn-acao">Editar</button>
+                        <button class="btn-acao">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 </body>
+
 </html>
