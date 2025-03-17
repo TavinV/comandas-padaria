@@ -1,174 +1,149 @@
 {
-    "produtos": [
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "Croassint",
+      "valor": "3.50"
+    }
+  ],
+  "comandas": [
+    {
+      "id": "1",
+      "produtos": [
         {
-            "cod": 1,
-            "nome": "Croassint de Frango",
-            "valor": 10.00
+          "cod": 3,
+          "nome": "Bolo de Chocolate",
+          "quantidade": 5,
+          "valor": 5
         },
         {
-            "cod": 2,
-            "nome": "Pão Francês",
-            "valor": 0.50
+          "cod": 7,
+          "nome": "Torta de Maçã",
+          "quantidade": 2,
+          "valor": 7.5
         },
         {
-            "cod": 3,
-            "nome": "Bolo de Chocolate",
-            "valor": 5.00
-        },
-        {
-            "cod": 4,
-            "nome": "Pão de Queijo",
-            "valor": 1.50
-        },
-        {
-            "cod": 5,
-            "nome": "Biscoito Amanteigado",
-            "valor": 3.00
-        },
-        {
-            "cod": 6,
-            "nome": "Pão de Mel",
-            "valor": 2.50
-        },
-        {
-            "cod": 7,
-            "nome": "Torta de Maçã",
-            "valor": 7.50
-        },
-        {
-            "cod": 8,
-            "nome": "Bolo de Fubá",
-            "valor": 4.00
-        },
-        {
-            "cod": 9,
-            "nome": "Croissant",
-            "valor": 2.00
-        },
-        {
-            "cod": 10,
-            "nome": "Pão Integral",
-            "valor": 2.00
-        },
-        {
-            "cod": 11,
-            "nome": "Muffin de Blueberry",
-            "valor": 3.50
-        },
-        {
-            "cod": 12,
-            "nome": "Pão de Batata",
-            "valor": 1.80
-        },
-        {
-            "cod": 13,
-            "nome": "Bolo de Cenoura",
-            "valor": 4.50
-        },
-        {
-            "cod": 14,
-            "nome": "Pão de Ló",
-            "valor": 3.00
-        },
-        {
-            "cod": 15,
-            "nome": "Churros",
-            "valor": 2.80
-        },
-        {
-            "cod": 16,
-            "nome": "Bolo de Limão",
-            "valor": 5.00
-        },
-        {
-            "cod": 17,
-            "nome": "Torta de Frango",
-            "valor": 8.00
-        },
-        {
-            "cod": 18,
-            "nome": "Coxinha",
-            "valor": 3.00
-        },
-        {
-            "cod": 19,
-            "nome": "Esfirra de Carne",
-            "valor": 3.50
-        },
-        {
-            "cod": 20,
-            "nome": "Baguete",
-            "valor": 4.00
-        },
-        {
-            "cod": 21,
-            "nome": "Pão Sírio",
-            "valor": 2.50
-        },
-        {
-            "cod": 22,
-            "nome": "Pão Doce",
-            "valor": 2.80
-        },
-        {
-            "cod": 23,
-            "nome": "Biscoito de Polvilho",
-            "valor": 1.80
-        },
-        {
-            "cod": 24,
-            "nome": "Torta de Chocolate",
-            "valor": 6.50
+          "cod": 12,
+          "nome": "Pão de Batata",
+          "quantidade": 1,
+          "valor": 1.8
         }
-    ],
-    "comandas": [
+      ]
+    },
+    {
+      "id": "2",
+      "produtos": [
         {
-            "id": 1,
-            "produtos": [
-                {"cod": 3, "nome": "Bolo de Chocolate", "quantidade": 5, "valor": 5.00},
-                {"cod": 7, "nome": "Torta de Maçã", "quantidade": 2, "valor": 7.50},
-                {"cod": 12, "nome": "Pão de Batata", "quantidade": 1, "valor": 1.80}
-            ]
+          "cod": 8,
+          "nome": "Bolo de Fubá",
+          "quantidade": 3,
+          "valor": 4
         },
         {
-            "id": 2,
-            "produtos": [
-                {"cod": 8, "nome": "Bolo de Fubá", "quantidade": 3, "valor": 4.00},
-                {"cod": 5, "nome": "Biscoito Amanteigado", "quantidade": 6, "valor": 3.00},
-                {"cod": 2, "nome": "Pão Francês", "quantidade": 1, "valor": 0.50}
-            ]
+          "cod": 5,
+          "nome": "Biscoito Amanteigado",
+          "quantidade": 6,
+          "valor": 3
         },
         {
-            "id": 3,
-            "produtos": [
-                {"cod": 10, "nome": "Pão Integral", "quantidade": 4, "valor": 2.00},
-                {"cod": 1, "nome": "Croassint de Frango", "quantidade": 2, "valor": 10.00},
-                {"cod": 4, "nome": "Pão de Queijo", "quantidade": 3, "valor": 1.50}
-            ]
-        },
-        {
-            "id": 4,
-            "produtos": [
-                {"cod": 15, "nome": "Churros", "quantidade": 2, "valor": 2.80},
-                {"cod": 13, "nome": "Bolo de Cenoura", "quantidade": 1, "valor": 4.50},
-                {"cod": 9, "nome": "Croissant", "quantidade": 5, "valor": 2.00}
-            ]
-        },
-        {
-            "id": 5,
-            "produtos": [
-                {"cod": 6, "nome": "Pão de Mel", "quantidade": 2, "valor": 2.50},
-                {"cod": 17, "nome": "Torta de Frango", "quantidade": 4, "valor": 8.00},
-                {"cod": 14, "nome": "Pão de Ló", "quantidade": 3, "valor": 3.00}
-            ]
-        },
-        {
-            "id": 6,
-            "produtos": [
-                {"cod": 18, "nome": "Coxinha", "quantidade": 1, "valor": 3.00},
-                {"cod": 11, "nome": "Muffin de Blueberry", "quantidade": 5, "valor": 3.50},
-                {"cod": 20, "nome": "Baguete", "quantidade": 2, "valor": 4.00}
-            ]
+          "cod": 2,
+          "nome": "Pão Francês",
+          "quantidade": 1,
+          "valor": 0.5
         }
-    ]
+      ]
+    },
+    {
+      "id": "3",
+      "produtos": [
+        {
+          "cod": 10,
+          "nome": "Pão Integral",
+          "quantidade": 4,
+          "valor": 2
+        },
+        {
+          "cod": 1,
+          "nome": "Croassint de Frango",
+          "quantidade": 2,
+          "valor": 10
+        },
+        {
+          "cod": 4,
+          "nome": "Pão de Queijo",
+          "quantidade": 3,
+          "valor": 1.5
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "produtos": [
+        {
+          "cod": 15,
+          "nome": "Churros",
+          "quantidade": 2,
+          "valor": 2.8
+        },
+        {
+          "cod": 13,
+          "nome": "Bolo de Cenoura",
+          "quantidade": 1,
+          "valor": 4.5
+        },
+        {
+          "cod": 9,
+          "nome": "Croissant",
+          "quantidade": 5,
+          "valor": 2
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "produtos": [
+        {
+          "cod": 6,
+          "nome": "Pão de Mel",
+          "quantidade": 2,
+          "valor": 2.5
+        },
+        {
+          "cod": 17,
+          "nome": "Torta de Frango",
+          "quantidade": 4,
+          "valor": 8
+        },
+        {
+          "cod": 14,
+          "nome": "Pão de Ló",
+          "quantidade": 3,
+          "valor": 3
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "produtos": [
+        {
+          "cod": 18,
+          "nome": "Coxinha",
+          "quantidade": 1,
+          "valor": 3
+        },
+        {
+          "cod": 11,
+          "nome": "Muffin de Blueberry",
+          "quantidade": 5,
+          "valor": 3.5
+        },
+        {
+          "cod": 20,
+          "nome": "Baguete",
+          "quantidade": 2,
+          "valor": 4
+        }
+      ]
+    }
+  ]
 }

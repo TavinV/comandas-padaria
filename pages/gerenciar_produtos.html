@@ -12,7 +12,7 @@
 <body>
     <header>
         <center>
-            <h2>Padaria Café com leite</h2>
+            <h2>Padaria Café com Leite</h2>
         </center>
         <nav>
             <ul>
@@ -38,7 +38,7 @@
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
-        <table id="tabela-produtos">
+        <table>
             <thead>
                 <tr>
                     <th>Código</th>
@@ -47,20 +47,80 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tb-produtos">
                 <!-- Produtos serão inseridos aqui via JavaScript -->
                 <tr>
                     <td>1</td>
                     <td>Café Expresso</td>
                     <td>R$ 5,00</td>
                     <td>
-                        <button class="btn-acao">Editar</button>
-                        <button class="btn-acao">Excluir</button>
+                        <button class="btn-acao btn-editar">Editar</button>
+                        <button class="btn-acao btn-excluir">Excluir</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Popup de Edição -->
+        <div id="popup-edicao" class="popup">
+            <h2>Editar Produto</h2>
+            <form id="form-edicao">
+                <label for="edit-cod">Código:</label>
+                <input type="number" id="edit-cod" name="edit-cod" required>
+
+                <label for="edit-nome">Nome:</label>
+                <input type="text" id="edit-nome" name="edit-nome" required>
+
+                <label for="edit-valor">Valor:</label>
+                <input type="number" id="edit-valor" name="edit-valor" step="0.01" required>
+
+                <button type="submit">Salvar</button>
+                <button type="button" id="btn-cancelar-edicao">Cancelar</button>
+            </form>
+        </div>
+
+        <!-- Popup de Confirmação de Exclusão -->
+        <div id="popup-exclusao" class="popup">
+            <h2>Excluir Produto</h2>
+            <p>Tem certeza que deseja excluir este produto?</p>
+            <button id="btn-confirmar-exclusao">Sim</button>
+            <button id="btn-cancelar-exclusao">Não</button>
+        </div>
+
+        <!-- Overlay para os popups -->
+        <div id="overlay" class="overlay"></div>
     </main>
+
+    <script>
+        // JavaScript para controlar os popups
+        document.addEventListener('DOMContentLoaded', () => {
+            const popupEdicao = document.getElementById('popup-edicao');
+            const popupExclusao = document.getElementById('popup-exclusao');
+            const overlay = document.getElementById('overlay');
+            const btnCancelarEdicao = document.getElementById('btn-cancelar-edicao');
+            const btnCancelarExclusao = document.getElementById('btn-cancelar-exclusao');
+
+            // Fechar popup de edição
+            btnCancelarEdicao.addEventListener('click', () => {
+                popupEdicao.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Fechar popup de exclusão
+            btnCancelarExclusao.addEventListener('click', () => {
+                popupExclusao.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Fechar popups ao clicar no overlay
+            overlay.addEventListener('click', () => {
+                popupEdicao.style.display = 'none';
+                popupExclusao.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+    </script>
+    <script type="module" src="../backend/src/gerenciarProdutos.js"></script>
 </body>
 
 </html>
