@@ -31,7 +31,7 @@ class Comanda {
 
         const comanda = {
             nome,
-            id: proximoId,
+            id: "" + proximoId,
             produtos: []
         }
 

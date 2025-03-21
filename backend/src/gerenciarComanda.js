@@ -1,7 +1,21 @@
 import Comanda from "../modules/Comandas.js";
+import Produto from "../modules/Produtos.js";
 
 const id = (elId) =>{
     return document.getElementById(elId)
+}
+
+async function carregarSelect (){
+    const produtos = await Produto.all()
+    const select = id("produto")
+
+    produtos.forEach(p =>{
+        console.log(p)
+        const option = document.createElement("option")
+        option.value = p.id
+        option.innerText = p.nome + " - R$ " + p.valor
+        select.appendChild(option)
+    })
 }
 
 // Função para gerar a tabela
@@ -51,13 +65,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     //Carregando as info da comanda
 
     const comanda = await Comanda.get(idComanda)
-    console.log(comanda)
     
     const tituloComanda = document.querySelector('h1')
     tituloComanda.innerText = `Comanda #${comanda.id} - ${comanda.nome}`
 
     gerarTabela(comanda)
-
+    carregarSelect()
 
 
     // Abrir popup ao clicar em "Fechar Comanda"
