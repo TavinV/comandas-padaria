@@ -16,7 +16,7 @@ Este projeto tem como objetivo gerenciar comandas em uma padaria, permitindo cri
 
 1. Clone este repositório:
    ```sh
-   git clone https://github.com/seuusuario/comandas-padaria.git
+   git clone https://github.com/TavinV/comandas-padaria.git
    cd comandas-padaria
    ```
 2. Instale as dependências:
