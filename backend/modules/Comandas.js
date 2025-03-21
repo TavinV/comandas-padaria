@@ -9,16 +9,47 @@ class Comanda {
             .then(res => res.json())
     }
 
-    static create = (comanda) => {
-        return fetch(comandasURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(comanda)
-        })
-            .then(res => res.json())
-    }
+    static create = async (nome) => {
+        const comandas = await this.all();
+        console.log(comandas);
+
+        // Função para encontrar o menor ID disponível
+        const findNextAvailableId = (comandas) => {
+            // Criar um array com os IDs que já estão ocupados
+            const idsOcupados = comandas.map(c => parseInt(c.id));
+            let nextId = 1;
+
+            // Loop para encontrar o menor ID disponível
+            while (idsOcupados.includes(nextId)) {
+                nextId++;
+            }
+
+            return nextId;
+        }
+
+        const proximoId = findNextAvailableId(comandas);
+
+        const comanda = {
+            nome,
+            id: proximoId,
+            produtos: []
+        }
+
+        try {
+            await fetch(comandasURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(comanda)
+            });
+
+            return [proximoId, null];
+        } catch (error) {
+            return [null, error];
+        }
+        }
+
 
     static update = (comanda) => {
         return fetch(`${comandasURL}/${comanda.id}`, {
@@ -31,8 +62,8 @@ class Comanda {
             .then(res => res.json())
     }
 
-    static delete = (comanda) => {
-        return fetch(`${comandasURL}/${comanda.id}`, {
+    static delete = (id) => {
+        return fetch(`${comandasURL}/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -40,11 +71,11 @@ class Comanda {
 
     static get = (id) => {
         return fetch(`${comandasURL}/${id}`)
+            .then(res => res.json())
     }
 
     static addProduct = async (comanda_id, cod, qtd) => {
-        const res = await this.get(comanda_id)
-        const comanda = await res.json()
+        const comanda = await this.get(comanda_id)
 
         const produtoExistente = comanda.produtos.find(p => p.cod === cod)
         if (produtoExistente) {

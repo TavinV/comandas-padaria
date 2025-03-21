@@ -12,7 +12,7 @@
 <body>
     <header>
         <center>
-            <h2>Padaria Café com leite</h2>
+            <h2>Padaria Café com Leite</h2>
         </center>
         <nav>
             <ul>
@@ -25,7 +25,27 @@
     <main>
         <h1>Comanda #001</h1>
         <div class="comanda-container">
+            <!-- Formulário para adicionar produtos -->
+            <div class="form-adicionar-produto">
+                <h2>Adicionar Produto</h2>
+                <form id="form-adicionar-produto">
+                    <label for="produto">Produto:</label>
+                    <select id="produto" name="produto" required>
+                        <option value="">Selecione um produto</option>
+                        <option value="1">Café Expresso - R$ 5,00</option>
+                        <option value="2">Pão de Queijo - R$ 4,00</option>
+                        <option value="3">Bolo de Chocolate - R$ 7,00</option>
+                    </select>
+
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" name="quantidade" min="1" required>
+
+                    <button type="submit">Adicionar</button>
+                </form>
+            </div>
+
             <!-- Tabela de Produtos da Comanda -->
+            <div class="tabela-comanda">
             <div class="tabela-comanda">
                 <table>
                     <thead>
@@ -33,35 +53,21 @@
                             <th>Produto</th>
                             <th>Quantidade</th>
                             <th>Valor Unitário</th>
-                            <th>Subotal</th>
+                            <th>Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Café Expresso</td>
-                            <td>2</td>
-                            <td>R$ 5,00</td>
-                            <td>R$ 10,00</td>
-                        </tr>
-                        <tr>
-                            <td>Pão de Queijo</td>
-                            <td>1</td>
-                            <td>R$ 4,00</td>
-                            <td>R$ 4,00</td>
-                        </tr>
+                        <!-- Linhas serão preenchidas via JavaScript -->
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3">Total</td>
-                            <td>R$ 14,00</td>
+                            <td>R$ 0,00</td>
                         </tr>
                     </tfoot>
                 </table>
                 <button id="btn-fechar-comanda">Fechar Comanda</button>
             </div>
-
-            <!-- Card Simulando Comanda Física -->
-
         </div>
 
         <!-- Popup de Confirmação de Pagamento -->
@@ -83,42 +89,7 @@
         <div id="overlay" class="overlay"></div>
     </main>
 
-    <script>
-        // JavaScript para controlar o popup de pagamento
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnFecharComanda = document.getElementById('btn-fechar-comanda');
-            const popupPagamento = document.getElementById('popup-pagamento');
-            const overlay = document.getElementById('overlay');
-            const btnCancelar = document.getElementById('btn-cancelar');
-
-            // Abrir popup ao clicar em "Fechar Comanda"
-            btnFecharComanda.addEventListener('click', () => {
-                popupPagamento.style.display = 'block';
-                overlay.style.display = 'block';
-            });
-
-            // Fechar popup ao clicar em "Cancelar" ou no overlay
-            btnCancelar.addEventListener('click', () => {
-                popupPagamento.style.display = 'none';
-                overlay.style.display = 'none';
-            });
-
-            overlay.addEventListener('click', () => {
-                popupPagamento.style.display = 'none';
-                overlay.style.display = 'none';
-            });
-
-            // Enviar formulário de pagamento
-            const formPagamento = document.getElementById('form-pagamento');
-            formPagamento.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const formaPagamento = document.getElementById('forma-pagamento').value;
-                alert(`Pagamento confirmado via ${formaPagamento}. Comanda fechada!`);
-                popupPagamento.style.display = 'none';
-                overlay.style.display = 'none';
-            });
-        });
-    </script>
+    <script type="module" src="../backend/src/gerenciarComanda.js"></script>
 </body>
 
 </html>
