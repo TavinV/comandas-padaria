@@ -1,11 +1,6 @@
 {
   "produtos": [
     {
-      "id": "1",
-      "nome": "Croassint",
-      "valor": "3.50"
-    },
-    {
       "id": "2",
       "nome": "Café expresso",
       "valor": "2.40"
@@ -13,12 +8,27 @@
     {
       "id": "3",
       "nome": "Pão na chapa",
-      "valor": "5.00"
+      "valor": "4.00"
     },
     {
       "id": "4",
       "nome": "Milkshake de chocolate",
       "valor": "12.40"
+    },
+    {
+      "id": "5",
+      "nome": "Trufa de morango",
+      "valor": "3.30"
+    },
+    {
+      "id": "6",
+      "nome": "Pão de Queijo",
+      "valor": "7.00"
+    },
+    {
+      "id": "10",
+      "nome": "Suco de laranja",
+      "valor": "15.00"
     }
   ],
   "comandas": [],
