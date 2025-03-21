@@ -1,5 +1,7 @@
 import Comanda from "../modules/Comandas.js";
 import Produto from "../modules/Produtos.js";
+import Pagamento from "../modules/Pagamentos.js";
+
 
 const id = (elId) =>{
     return document.getElementById(elId)
@@ -10,7 +12,6 @@ async function carregarSelect (){
     const select = id("produto")
 
     produtos.forEach(p =>{
-        console.log(p)
         const option = document.createElement("option")
         option.value = p.id
         option.innerText = p.nome + " - R$ " + p.valor
@@ -32,13 +33,15 @@ function gerarTabela(comanda) {
     comanda.produtos.forEach(produto => {
         const subtotal = produto.quantidade * produto.valor;
         totalComanda += subtotal;
-
         const novaLinha = `
             <tr>
                 <td>${produto.nome}</td>
                 <td>${produto.quantidade}</td>
                 <td>R$ ${produto.valor.toFixed(2)}</td>
                 <td>R$ ${subtotal.toFixed(2)}</td>
+                <td style="text-align: center;">
+                    <button class="btn-remover" data-cod="${produto.id}"><i class='bx bxs-trash'></i></button>
+                </td>
             </tr>
         `;
         tabelaBody.insertAdjacentHTML('beforeend', novaLinha);
@@ -47,24 +50,46 @@ function gerarTabela(comanda) {
     // Atualiza o total da comanda
     tabelaFoot.textContent = `R$ ${totalComanda.toFixed(2)}`;
 }
+        
 
+const btnFecharComanda = id('btn-fechar-comanda');
+const btnCancelar = id('btn-cancelar');
+const overlay = id('overlay');
+const popupPagamento = id('popup-pagamento');
+
+// Abrir popup ao clicar em "Fechar Comanda"
+btnFecharComanda.addEventListener('click', () => {
+    popupPagamento.style.display = 'block';
+    overlay.style.display = 'block';
+});
+
+// Fechar popup ao clicar em "Cancelar" ou no overlay
+btnCancelar.addEventListener('click', () => {
+    popupPagamento.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+overlay.addEventListener('click', () => {
+    popupPagamento.style.display = 'none';
+    overlay.style.display = 'none';
+});
 
 
 // JavaScript para controlar o popup de pagamento e adicionar produtos
 document.addEventListener('DOMContentLoaded', async () => {
-    const btnFecharComanda = id('btn-fechar-comanda');
-    const popupPagamento = id('popup-pagamento');
-    const overlay = id('overlay');
-    const btnCancelar = id('btn-cancelar');
     const formAdicionarProduto = id('form-adicionar-produto');
-    const tabelaProdutos = document.querySelector('.tabela-comanda tbody');
 
     const urlParams = new URLSearchParams(window.location.search);
     const idComanda = urlParams.get('id');
 
     //Carregando as info da comanda
+    let comanda
 
-    const comanda = await Comanda.get(idComanda)
+    try {
+        comanda = await Comanda.get(idComanda)
+    } catch (error) {
+        window.location.href = '../../pages/comandas.html'
+    }
     
     const tituloComanda = document.querySelector('h1')
     tituloComanda.innerText = `Comanda #${comanda.id} - ${comanda.nome}`
@@ -72,40 +97,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     gerarTabela(comanda)
     carregarSelect()
 
-
-    // Abrir popup ao clicar em "Fechar Comanda"
-    btnFecharComanda.addEventListener('click', () => {
-        popupPagamento.style.display = 'block';
-        overlay.style.display = 'block';
-    });
-
-    // Fechar popup ao clicar em "Cancelar" ou no overlay
-    btnCancelar.addEventListener('click', () => {
-        popupPagamento.style.display = 'none';
-        overlay.style.display = 'none';
-    });
-
-    overlay.addEventListener('click', () => {
-        popupPagamento.style.display = 'none';
-        overlay.style.display = 'none';
-    });
-
     // Enviar formulário de pagamento
     const formPagamento = document.getElementById('form-pagamento');
-    formPagamento.addEventListener('submit', (e) => {
+    formPagamento.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formaPagamento = document.getElementById('forma-pagamento').value;
         
-        
         alert(`Pagamento confirmado via ${formaPagamento}. Comanda fechada!`);
 
+        let totalVenda = 0 
+        comanda.produtos.forEach(p =>{
+            totalVenda += p.valor * p.quantidade 
+        })
+
+        const resposta = await Pagamento.registrar(totalVenda, formaPagamento)
+        Comanda.delete(idComanda)
+''
 
         popupPagamento.style.display = 'none';
         overlay.style.display = 'none';
     });
 
     // Adicionar produto à comanda
-    formAdicionarProduto.addEventListener('submit', (e) => {
+    formAdicionarProduto.addEventListener('submit', async (e) => {
         e.preventDefault();
         const produtoSelecionado = document.getElementById('produto').value;
         const quantidade = document.getElementById('quantidade').value;
@@ -114,28 +128,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Selecione um produto e insira a quantidade.');
             return;
         }
+        
+        const produto = await Produto.get(produtoSelecionado)
+        await Comanda.addProduct(idComanda, produto.id, quantidade)
 
-        // Exemplo de adição de produto à tabela
-        const produtoTexto = document.getElementById('produto').selectedOptions[0].text;
-        const [nomeProduto, valorUnitario] = produtoTexto.split(' - ');
-        const subtotal = (parseFloat(valorUnitario.replace('R$ ', '')) * parseInt(quantidade)).toFixed(2);
-
-        const novaLinha = `
-            <tr>
-                <td>${nomeProduto}</td>
-                <td>${quantidade}</td>
-                <td>${valorUnitario}</td>
-                <td>R$ ${subtotal}</td>
-            </tr>
-        `;
-        tabelaProdutos.insertAdjacentHTML('beforeend', novaLinha);
-
-        // Atualizar o total da comanda (exemplo simples)
-        const totalAtual = parseFloat(document.querySelector('.tabela-comanda tfoot td:last-child').textContent.replace('R$ ', ''));
-        const novoTotal = (totalAtual + parseFloat(subtotal)).toFixed(2);
-        document.querySelector('.tabela-comanda tfoot td:last-child').textContent = `R$ ${novoTotal}`;
-
-        // Limpar o formulário
+        gerarTabela()
         formAdicionarProduto.reset();
+       
+    });
+    
+    const botoesRemover = document.querySelectorAll('.btn-remover');
+         botoesRemover.forEach(botao => {
+             botao.addEventListener('click', () => {
+                 const codProduto = botao.getAttribute('data-cod');
+                 Comanda.removeProduct(idComanda, codProduto)
+             });
     });
 });

@@ -76,24 +76,24 @@ class Comanda {
 
     static addProduct = async (comanda_id, cod, qtd) => {
         const comanda = await this.get(comanda_id)
-
         const produtoExistente = comanda.produtos.find(p => p.cod === cod)
+        
         if (produtoExistente) {
-            produtoExistente.qtd += qtd
+            produtoExistente.quantidade += parseInt(qtd)
         } else {
-            Produto.get(cod).then((p) => {
-                p.quantidade = qtd
-                comanda.produtos.push(p)
-            })
-        }
+            let produto = await Produto.get(cod)    
+            produto.quantidade = parseInt(qtd)
+            produto.valor = parseFloat(produto.valor)
 
+            comanda.produtos.push(produto)       
+        }
+        
         return this.update(comanda)
     }
 
     static removeProduct = async (comanda_id, cod) => {
-        const res = await this.get(comanda_id)
-        const comanda = await res.json()
-        const index = comanda.produtos.findIndex(p => p.cod === cod)
+        const comanda = await this.get(comanda_id)
+        const index = comanda.produtos.findIndex(p => p.id === cod)
 
         if (index !== -1) {
             comanda.produtos.splice(index, 1)

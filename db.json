@@ -4,40 +4,23 @@
       "id": "1",
       "nome": "Croassint",
       "valor": "3.50"
-    }
-  ],
-  "comandas": [
-    {
-      "id": "1",
-      "nome": "Otávio",
-      "produtos": []
     },
     {
       "id": "2",
-      "nome": "Lucas Gomes",
-      "produtos": [
-        {
-          "cod": "1",
-          "nome": "Croassint",
-          "valor": 3.5,
-          "quantidade": 3
-        }
-      ]
+      "nome": "Café expresso",
+      "valor": "2.40"
     },
     {
       "id": "3",
-      "nome": "Bruno",
-      "produtos": []
+      "nome": "Pão na chapa",
+      "valor": "5.00"
     },
     {
       "id": "4",
-      "nome": "ViniBlogger",
-      "produtos": []
-    },
-    {
-      "id": "5",
-      "nome": "Leonardo",
-      "produtos": []
+      "nome": "Milkshake de chocolate",
+      "valor": "12.40"
     }
-  ]
+  ],
+  "comandas": [],
+  "pagamentos": []
 }
